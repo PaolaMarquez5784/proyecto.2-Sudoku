@@ -68,7 +68,7 @@ begin
 	until pistasGen = pistasTablero;
 end;
 
-function validarMovimiento(tabSudoku: Tablero; fil, col, num: integer): boolean; //x = filas, y = columnas
+function validarMovimiento(tabSudoku: Tablero; fil, col, num: integer): boolean; 
 var
 	i, j, cuadrantFila, cuadrantColumna: integer;
 begin
