@@ -24,23 +24,25 @@ var
 begin
 	writeln('------------------------');
 	for i := 1 to filas do
-		for j := 1 to columnas do
-			begin
-				if PistasTab[i,j] then //verificamos que el valor sea diferente de cero para asignarle un color a las pistas.
-					textcolor(lightgray)
-					
-				else if tabSudoku[i,j] = 0 then
-						textcolor(white)
-				else
-					textcolor(white);
-					write(tabSudoku[i,j], ' ');
-					
-					if j mod cuadrantes = 0 then
-						write('| ');
-			end;
-		writeln;
-		if i mod cuadrantes = 0 then
-			writeln('------------------------');
+ 		begin
+			for j := 1 to columnas do
+				begin
+					if PistasTab[i,j] then //verificamos que el valor sea diferente de cero para asignarle un color a las pistas.
+						textcolor(lightgray)
+						
+					else if tabSudoku[i,j] = 0 then
+							textcolor(white)
+					else
+						textcolor(white);
+						write(tabSudoku[i,j], ' ');
+						
+						if j mod cuadrantes = 0 then
+							write('| ');
+				end;
+			writeln;
+			if i mod cuadrantes = 0 then
+				writeln('------------------------');
+   		end;
 end;
 
 procedure inicioPistas(var tabSudoku: Tablero; var PistasTab: PistasSudoku);
