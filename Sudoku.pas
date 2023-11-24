@@ -163,11 +163,13 @@ begin
 		begin
 			tabSudoku[i,j] := numero;
 			writeln('El numero ha sido eliminado/modificado exitosamente');
+			Exit;
 		end
 		
 		else
 			begin
 				writeln('No se puede modificar una pista, intente nuevamente');
+				Exit;
 			end;
 end;
 
@@ -198,38 +200,37 @@ begin
 					mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 				end;
 end;
-
 //PROCEDIMIENTO PARA MOSTRAR UN MENU DE OPCIONES
 procedure opcionesJuego(var tabSudoku: Tablero);
-	begin
-		textcolor(yellow);
-		gotoxy(28,7);
-		writeln('||=======================================||');
-		gotoxy(28,8);
-		writeln('||            MENU DE OPCIONES           ||');
-		gotoxy(28,9);
-		writeln('||=======================================||');
-		writeln();
-		gotoxy(28,10);
-		writeln('|| 1. Ingresar un numero                 ||');
-		gotoxy(28,11);
-		writeln('|| 2. Eliminar/modificar numero          ||');
-		gotoxy(28,12);
-		writeln('|| 3. Rendirse                           ||');
-		gotoxy(28,13);
-		writeln('|| 4. Salir                              ||');
-		gotoxy(28,14);
-		writeln('||=======================================||');
-	end;
+var
+	op: integer;
+begin
+	textcolor(yellow);
+	gotoxy(28,7);
+	writeln('||=======================================||');
+	gotoxy(28,8);
+	writeln('||            MENU DE OPCIONES           ||');
+	gotoxy(28,9);
+	writeln('||=======================================||');
+	writeln();
+	gotoxy(28,10);
+	writeln('|| 1. Ingresar un numero                 ||');
+	gotoxy(28,11);
+	writeln('|| 2. Eliminar/modificar numero          ||');
+	gotoxy(28,12);
+	writeln('|| 3. Rendirse                           ||');
+	gotoxy(28,13);
+	writeln('|| 4. Salir                              ||');
+	gotoxy(28,14);
+	writeln('||=======================================||');
+end;
+	
 //PROCEDIMIENTO PARA QUE EL USUARIO INGRESE NUMEROS EN LAS FILAS Y COLUMNAS
 
 procedure introducirNumero(var tabSudoku: Tablero; PistasTab: PistasSudoku);
 var
 	i, j, numero: integer;
-	tabCompleto: boolean;
 begin
-	tabCompleto := false;
-	while not tabCompleto do
 	begin
 		textcolor(yellow);
 		writeln('');
@@ -285,15 +286,20 @@ begin
 							
 				end;
 		end;
+end;
 
-			//CONFIRMAMOS QUE EL TABLERO ESTE COMPLETO
-
-			TabCompleto := true; 
-				for i := 1 to filas do
-					for j := 1 to columnas do
-						if tabSudoku[i,j] = 0 then
-							tabCompleto := false;
-					
+//PROCEDIMIENTO PARA CONFIRMAR QUE EL TABLERO ESTE COMPLETO
+procedure tabCompleto(var tabSudoku: Tablero);
+var 
+	i, j: integer;
+	TabCompleto: boolean;
+begin
+	TabCompleto := true;
+	for i := 1 to filas do
+		for j := 1 to columnas do
+			if tabSudoku[i,j] = 0 then
+				tabCompleto := false;
+				
 			//SI EL TABLERO ESTA COMPLETO, SALE MENSAJE DE FELICITACIONES
 
 			textcolor(lightgreen);
@@ -303,7 +309,6 @@ begin
 			writeln('==============================================');
 			writeln('==============================================');
 end;
-
 //PROGRAMA PRINCIPAL
 BEGIN
 	textcolor(lightmagenta);
@@ -395,16 +400,20 @@ BEGIN
 				delay(3000);
 				textcolor(white);
 				inicioPistas(tabSudoku, PistasTab);
-				opcionesJuego(tabSudoku);
-				
-				gotoxy(28,15);
-				write('|| Indique su opcion y presione ENTER: ');
-				readln(op);
 				
 				repeat
+					opcionesJuego(tabSudoku);
+					gotoxy(28,15);
+					write('|| Indique su opcion y presione ENTER: ');
+					readln(op);
 					case op of
 						1: begin
 							introducirNumero(tabSudoku, PistasTab);
+							if solucionSudoku(tabSudoku) then
+								begin
+									tabCompleto(tabSudoku);
+									Break;
+								end;
 						end;
 						
 						2: begin
@@ -416,6 +425,7 @@ BEGIN
 						end;
 					end;
 				until (op = 4);
+
 			end
 			else 
 				if opcion <> 2 then
