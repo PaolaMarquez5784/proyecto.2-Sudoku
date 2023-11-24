@@ -294,6 +294,7 @@ begin
 				gotoxy(12,3);
 				writeln('||*******************************************************||');
 				writeln('');
+    				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 				opcionesJuego(tabSudoku);
 			end
 			else 
