@@ -43,8 +43,11 @@ begin
 							write('| ');
 				end;
 			writeln;
+			
 			if i mod cuadrantes = 0 then
-				writeln('------------------------');
+				begin
+					writeln('------------------------');
+				end;
    		end;
 end;
 
@@ -175,37 +178,46 @@ var
 begin
 	writeln('');
 	writeln('');
-	write('Indique la fila donde esta el numero a modificar.(1-9): ');
+	writeln('-----------------------------------------------------------------------');
+	write('* Indique la fila donde esta el numero a modificar.(1-9): ');
 	readln(i);
 	
 	writeln('');
-	write('Indique la columna donde esta el numero a modificar.(1-9): ');
+	writeln('----------------------------------------------');
+	write('* Indique la columna donde esta el numero a modificar.(1-9): ');
 	readln(j);
 	
 	writeln('');
-	write('Indique el nuevo numero que desea ingresar.(1-9) o marque 0 para eliminar el actual: ');
+	writeln('---------------------------------------------------------------------------------------');
+	write('* Indique el nuevo numero que desea ingresar.(1-9) o marque 0 para eliminar el actual: ');
 	readln(numero);
 	
-	if (numero >= 0) and (numero <= 9) and (PistasTab[i,j] = false) then
+	if (numero >= 1) and (numero <= 9) and (PistasTab[i,j] = false) then
 		begin
 			tabSudoku[i,j] := numero;
+			clrscr;
+			gotoxy(12,1);
 			writeln('||****************************************************||');
+			gotoxy(12,2);
 			writeln('||El numero ha sido eliminado/modificado exitosamente.||');
+			gotoxy(12,3);
 			writeln('||****************************************************||');
 			writeln('');
 			mostrarTablero(tabSudoku, SolucionTab, PistasTab);
-			opcionesJuego(tabSudoku);
 		end
 		
 		else
 			begin
+				clrscr;
+				gotoxy(12,1);
 				writeln('||****************************************************||');
+				gotoxy(12,2);
 				writeln('||No se puede modificar una pista, intente nuevamente.||');
+				gotoxy(12,3);
 				writeln('||****************************************************||');
 				writeln('');
-				opcionesJuego(tabSudoku);
+				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 			end;
-	mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 end;
 
 //FUNCION QUE PERMITE AL USUARIO TENER LA OPCION DE RENDIRSE
@@ -216,12 +228,21 @@ var
 begin
 	tableroCop := SolucionTab;
 	
-	writeln('Estas seguro que deseas rendirte? (si/no)');
+	writeln('');
+	writeln('');
+	writeln('-----------------------------------------------------------------------');
+	writeln('* Estas seguro que deseas rendirte? (si/no)');
 	readln(resp);
 	
 		if (resp = 'si') or (resp = 'SI') then
 			begin
-				writeln('Te has rendido, la solucion del sudoku es: ');
+				clrscr;
+				gotoxy(12,1);
+				writeln('||****************************************************||');
+				gotoxy(12,2);
+				writeln('||     TE HAS RENDIDO, LA SOLUCION DEL SUDOKU ES:     ||');
+				gotoxy(12,3);
+				writeln('||****************************************************||');
 				solucionSudoku(tableroCop);
 				tabSudoku := tableroCop;
 				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
@@ -232,6 +253,7 @@ begin
 				begin
 					rendirse := false;
 					clrscr;
+					gotoxy(2,1);
 					mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 				end;
 end;
@@ -265,8 +287,11 @@ begin
 		if (PistasTab[i,j] = true) then
 			begin
 				textcolor(lightred);
+				gotoxy(12,1);
 				writeln('||*******************************************************||');
+				gotoxy(12,2);
 				writeln('|| No es posible modificar una pista, intente nuevamente ||');
+				gotoxy(12,3);
 				writeln('||*******************************************************||');
 				writeln('');
 				opcionesJuego(tabSudoku);
@@ -278,8 +303,11 @@ begin
 							tabSudoku[i,j] := numero;
 							clrscr;
 							textcolor(lightgreen);
+							gotoxy(12,1);
 							writeln('||******************************************||');
+							gotoxy(12,2);
 							writeln('|| Numero verificado e ingresado con exito. ||');
+							gotoxy(12,3);
 							writeln('||******************************************||');
 							writeln('');
 							mostrarTablero(tabSudoku, SolucionTab, PistasTab);
@@ -288,11 +316,13 @@ begin
 						else
 							begin
 								textcolor(lightred);
+								gotoxy(12,1);
 								writeln('||*****************************************************||');
+								gotoxy(12,2);
 								writeln('|| Movimiento invalido. Por favor, intente nuevamente. ||');
+								gotoxy(12,3);
 								writeln('||*****************************************************||');
 								mostrarTablero(tabSudoku, SolucionTab, PistasTab);
-								opcionesJuego(tabSudoku);
 							end;
 							
 				end;
@@ -314,99 +344,106 @@ begin
 			//SI EL TABLERO ESTA COMPLETO, SALE MENSAJE DE FELICITACIONES
 
 			textcolor(lightgreen);
+			gotoxy(15,1);
 			writeln('==============================================');
+			gotoxy(15,2);
 			writeln('==============================================');
+			gotoxy(15,3);
 			writeln('** FELICITACIONES, HAS COMPLETADO EL SUDOKU **');
+			gotoxy(15,4);
 			writeln('==============================================');
+			gotoxy(15,5);
 			writeln('==============================================');
 end;
 //PROGRAMA PRINCIPAL
 BEGIN
 	textcolor(lightmagenta);
-	gotoxy(10,5);
+	gotoxy(15,5);
 	writeln('||************************************************||');
-	gotoxy(10,6);
+	gotoxy(15,6);
 	writeln('||             BIENVENIDO A SudokuMania           ||');
-	gotoxy(10,7);
+	gotoxy(15,7);
 	writeln('||                "Desafia tu Mente!"             ||');
-	gotoxy(10,8);
+	gotoxy(15,8);
 	writeln('||************************************************||');
 
 	writeln();
 	textcolor(white);
-	gotoxy(10,9);
+	gotoxy(15,9);
 	writeln('||================================================||');
-	gotoxy(10,10);
+	gotoxy(15,10);
 	writeln('|| Ingrese su nombre y presione ENTER             ||');
-	gotoxy(10,11);
+	gotoxy(15,11);
 	write('|| NOMBRE: ');
 	readln(nombre);
-	gotoxy(10,12);
+	gotoxy(15,12);
 	writeln('||------------------------------------------------||');
-	gotoxy(10,13);
+	gotoxy(15,13);
 	writeln('|| Ingrese su apellido y presione ENTER           ||');
-	gotoxy(10,14);
+	gotoxy(15,14);
 	write('|| APELLIDO: ');
 	readln(apellido);
-	gotoxy(10,15);
+	gotoxy(15,15);
 	writeln('||------------------------------------------------||');
-	gotoxy(10,16);
+	gotoxy(15,16);
 	writeln('|| Ingrese el NickName que desee y presione ENTER ||');
-	gotoxy(10,17);
+	gotoxy(15,17);
 	write('|| NICKNAME: ');
 	readln(NickName);
-	gotoxy(10,18);
+	gotoxy(15,18);
 	writeln('||================================================||');
 	
 	clrscr;
-	gotoxy(10,20);
+	gotoxy(15,20);
 	writeln('||================================================||');
-	gotoxy(10,21);
+	gotoxy(15,21);
 	writeln('||              VERIFIQUE SUS DATOS               ||');
-	gotoxy(10,22);
+	gotoxy(15,22);
 	writeln('||================================================||');
-	gotoxy(10,23);
+	gotoxy(15,23);
 	writeln('|| NOMBRE: ', nombre);
-	gotoxy(10,24);
+	gotoxy(15,24);
 	writeln('||------------------------------------------------||');
-	gotoxy(10,25);
+	gotoxy(15,25);
 	writeln('|| APELLIDO: ', apellido);
-	gotoxy(10,26);
+	gotoxy(15,26);
 	writeln('||------------------------------------------------||');
-	gotoxy(10,27);
+	gotoxy(15,27);
 	writeln('|| NICKNAME: ', NickName);
-	gotoxy(10,28);
+	gotoxy(15,28);
 	writeln('||================================================||');
 	clrscr;
 	
 	repeat
-		gotoxy(10,2);
+		textcolor(white);
+		gotoxy(15,2);
 		writeln('||================================================||');
-		gotoxy(10,3);
+		gotoxy(15,3);
 		writeln('||                 ELIJA UNA OPCION               ||');
-		gotoxy(10,4);
+		gotoxy(15,4);
 		writeln('||------------------------------------------------||');
-		gotoxy(10,5);
+		gotoxy(15,5);
 		writeln('|| 1. Iniciar juego                               ||');
-		gotoxy(10,6);
+		gotoxy(15,6);
 		writeln('|| 2. Salir                                       ||');
-		gotoxy(10,7);
+		gotoxy(15,7);
 		writeln('||------------------------------------------------||');
-		gotoxy(10,8);
+		gotoxy(15,8);
 		write('|| Indique su opcion y presione ENTER: ');
 		readln(opcion);
 		clrscr;
 		
+		
 		if opcion=1 then
 			begin
 				textcolor(lightblue);
-				gotoxy(11,1);
+				gotoxy(12,1);
 				writeln('||================================================||');
-				gotoxy(11,2);
+				gotoxy(12,2);
 				writeln('||       HORA DE DESAFIAR TU MENTE AL MAXIMO      ||');
-				gotoxy(11,3);
+				gotoxy(12,3);
 				writeln('||      QUE LA SUERTE ESTE SIEMPRE DE SU LADO!    ||');
-				gotoxy(11,4);
+				gotoxy(12,4);
 				writeln('||================================================||');
 				delay(3000);
 				textcolor(white);
@@ -429,7 +466,6 @@ BEGIN
 						
 						2: begin
 							modificarNumero(tabSudoku, PistasTab);
-							Break;
 						end;
 						
 						3: begin
@@ -437,6 +473,7 @@ BEGIN
 						end;
 					end;
 				until (op = 4);
+				clrscr;
 
 			end
 			else 
@@ -446,8 +483,11 @@ BEGIN
 	
 	begin
 		textcolor(yellow);
+		gotoxy(11,1);
 		writeln('||================================================||');
+		gotoxy(11,1);
 		writeln('||      GRACIAS POR SU VISITA, VUELVA PRONTO.     ||');
+		gotoxy(11,1);
 		writeln('||================================================||');
 	end;
 END.
