@@ -294,7 +294,7 @@ begin
 				gotoxy(12,3);
 				writeln('||*******************************************************||');
 				writeln('');
-    				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
+				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 			end
 			else 
 				begin
@@ -311,7 +311,6 @@ begin
 							writeln('||******************************************||');
 							writeln('');
 							mostrarTablero(tabSudoku, SolucionTab, PistasTab);
-							opcionesJuego(tabSudoku);
 						end
 						else
 							begin
@@ -496,4 +495,5 @@ END.
 {Elaborado por:
 * Paola Márquez. C.I: 27.125.784
 * Enderson Velasquez. C.I: 30.141.384}
+
 
