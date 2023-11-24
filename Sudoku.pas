@@ -295,7 +295,6 @@ begin
 				writeln('||*******************************************************||');
 				writeln('');
     				mostrarTablero(tabSudoku, SolucionTab, PistasTab);
-				opcionesJuego(tabSudoku);
 			end
 			else 
 				begin
