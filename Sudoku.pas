@@ -434,9 +434,3 @@ END.
 {Elaborado por:
 * Paola Márquez. C.I: 27.125.784
 * Enderson Velasquez. C.I: 30.141.384}
-
-
-BEGIN
-	mostrarTablero(tabSudoku,PistasTab);
-	inicioPistas(tabSudoku, PistasTab);
-END.
