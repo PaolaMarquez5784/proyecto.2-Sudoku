@@ -143,6 +143,31 @@ begin
 		Exit(True);
 end;
 
+//PROCEDIMIENTO PARA MOSTRAR UN MENU DE OPCIONES
+procedure opcionesJuego(var tabSudoku: Tablero);
+var
+	op: integer;
+begin
+	textcolor(yellow);
+	gotoxy(28,7);
+	writeln('||=======================================||');
+	gotoxy(28,8);
+	writeln('||            MENU DE OPCIONES           ||');
+	gotoxy(28,9);
+	writeln('||=======================================||');
+	writeln();
+	gotoxy(28,10);
+	writeln('|| 1. Ingresar un numero                 ||');
+	gotoxy(28,11);
+	writeln('|| 2. Eliminar/modificar numero          ||');
+	gotoxy(28,12);
+	writeln('|| 3. Rendirse                           ||');
+	gotoxy(28,13);
+	writeln('|| 4. Salir                              ||');
+	gotoxy(28,14);
+	writeln('||=======================================||');
+end;
+
 //PROCEDIMIENTO QUE PERMITE BORRAR UN NUMERO DEL TABLERO
 procedure modificarNumero(var tabSudoku: Tablero; var PistasTab: PistasSudoku);
 var
@@ -164,12 +189,21 @@ begin
 	if (numero >= 0) and (numero <= 9) and (PistasTab[i,j] = false) then
 		begin
 			tabSudoku[i,j] := numero;
-			writeln('El numero ha sido eliminado/modificado exitosamente');
+			writeln('||****************************************************||');
+			writeln('||El numero ha sido eliminado/modificado exitosamente.||');
+			writeln('||****************************************************||');
+			writeln('');
+			mostrarTablero(tabSudoku, SolucionTab, PistasTab);
+			opcionesJuego(tabSudoku);
 		end
 		
 		else
 			begin
-				writeln('No se puede modificar una pista, intente nuevamente');
+				writeln('||****************************************************||');
+				writeln('||No se puede modificar una pista, intente nuevamente.||');
+				writeln('||****************************************************||');
+				writeln('');
+				opcionesJuego(tabSudoku);
 			end;
 	mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 end;
@@ -200,30 +234,6 @@ begin
 					clrscr;
 					mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 				end;
-end;
-//PROCEDIMIENTO PARA MOSTRAR UN MENU DE OPCIONES
-procedure opcionesJuego(var tabSudoku: Tablero);
-var
-	op: integer;
-begin
-	textcolor(yellow);
-	gotoxy(28,7);
-	writeln('||=======================================||');
-	gotoxy(28,8);
-	writeln('||            MENU DE OPCIONES           ||');
-	gotoxy(28,9);
-	writeln('||=======================================||');
-	writeln();
-	gotoxy(28,10);
-	writeln('|| 1. Ingresar un numero                 ||');
-	gotoxy(28,11);
-	writeln('|| 2. Eliminar/modificar numero          ||');
-	gotoxy(28,12);
-	writeln('|| 3. Rendirse                           ||');
-	gotoxy(28,13);
-	writeln('|| 4. Salir                              ||');
-	gotoxy(28,14);
-	writeln('||=======================================||');
 end;
 	
 //PROCEDIMIENTO PARA QUE EL USUARIO INGRESE NUMEROS EN LAS FILAS Y COLUMNAS
