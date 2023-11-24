@@ -148,14 +148,16 @@ procedure modificarNumero(var tabSudoku: Tablero; var PistasTab: PistasSudoku);
 var
 	i, j, numero: integer;
 begin
-	mostrarTablero(tabSudoku, SolucionTab, PistasTab);
-	
+	writeln('');
+	writeln('');
 	write('Indique la fila donde esta el numero a modificar.(1-9): ');
 	readln(i);
 	
+	writeln('');
 	write('Indique la columna donde esta el numero a modificar.(1-9): ');
 	readln(j);
 	
+	writeln('');
 	write('Indique el nuevo numero que desea ingresar.(1-9) o marque 0 para eliminar el actual: ');
 	readln(numero);
 	
@@ -163,14 +165,13 @@ begin
 		begin
 			tabSudoku[i,j] := numero;
 			writeln('El numero ha sido eliminado/modificado exitosamente');
-			Exit;
 		end
 		
 		else
 			begin
 				writeln('No se puede modificar una pista, intente nuevamente');
-				Exit;
 			end;
+	mostrarTablero(tabSudoku, SolucionTab, PistasTab);
 end;
 
 //FUNCION QUE PERMITE AL USUARIO TENER LA OPCION DE RENDIRSE
@@ -418,6 +419,7 @@ BEGIN
 						
 						2: begin
 							modificarNumero(tabSudoku, PistasTab);
+							Break;
 						end;
 						
 						3: begin
